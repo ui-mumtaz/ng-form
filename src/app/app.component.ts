@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, NgForm, Validators } from '@angular/forms';
+import { formsignup } from './formsingup';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,15 @@ export class AppComponent implements OnInit {
     })
   }
   ngOnInit() {
-
+    // this.signupForm.get('fname').valueChanges.subscribe(res=> {
+    //   console.log('fname :: ', res)
+    // })
+    this.signupForm.valueChanges.subscribe((detail:formsignup) => {
+      console.log('fname :: ', detail.fname);
+      console.log('lname :: ', detail.lname);
+      console.log('email :: ', detail.email);
+      console.log('pwd :: ', detail.pwd);
+    })
   }
 
   postData() {
