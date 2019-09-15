@@ -9,42 +9,49 @@ import { FormGroup, FormBuilder, FormControl, NgForm, Validators } from '@angula
 export class AppComponent implements OnInit {
   title = 'Ang Form';
   signupForm: FormGroup;
-  firstName:string="";
-  lastName:string="";
-  email:string="";
-  password: string="";
+  firstName: string = "";
+  lastName: string = "";
+  email: string = "";
+  password: string = "";
 
-  constructor(private formBuilder:FormBuilder){
-    this.signupForm=formBuilder.group({
+  constructor(private formBuilder: FormBuilder) {
+    this.signupForm = formBuilder.group({
       fname: ['', Validators.required],
       lname: ['', [Validators.required, Validators.maxLength(5)]],
       email: ['', [Validators.required, Validators.email]],
-      pwd:   ['', Validators.required]
+      pwd: ['', Validators.required]
     })
   }
-  ngOnInit(){
+  ngOnInit() {
 
   }
 
- /* postData(signupForm:any){
-    this.firstName = signupForm.controls.fname.value;
-    this.lastName = signupForm.controls.lname.value;
-    this.email = signupForm.controls.email.value;
-    this.password = signupForm.controls.pwd.value;
-    console.log(this.firstName);
-  } */
-  postData(){
-    this.firstName=this.signupForm.get('fname').value;
+  postData() {
+    this.firstName = this.signupForm.get('fname').value;
     this.lastName = this.signupForm.get('lname').value;
     console.log(this.signupForm.value)
   }
- /* resetForm(){
-    this.signupForm.reset();
-  } */
-  resetForm(){
+
+  resetForm() {
     this.signupForm.reset({
       fname: "Ahmad",
-      email:'xyz@gmail.com'
+      email: 'xyz@gmail.com'
+    })
+  }
+
+  /*fillData() {
+    this.signupForm.setValue({
+      "fname": "Ahmad",
+      "lname": "Mr",
+      "email": "aa@gg.com",
+      "pwd": "xxx"
+    })
+  } */
+  fillData() {
+    this.signupForm.patchValue({
+      "fname": "Ahmad",
+      "email": "aa@gg.com",
+      "pwd": "xxx"
     })
   }
 }
