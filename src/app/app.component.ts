@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, NgForm } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, NgForm, Validators } from '@angular/forms';
+import { formsignup } from './formsingup';
 
 @Component({
   selector: 'app-root',
@@ -9,24 +10,62 @@ import { FormGroup, FormBuilder, FormControl, NgForm } from '@angular/forms';
 export class AppComponent implements OnInit {
   title = 'Ang Form';
   signupForm: FormGroup;
-  firstName:string;
-  lastName:string;
-  email:string;
-  password: string;
+  firstName: string = "";
+  lastName: string = "";
+  email: string = "";
+  password: string = "";
 
-  constructor(private formBuilder: FormBuilder){
+  constructor(private formBuilder: FormBuilder) {
     this.signupForm = formBuilder.group({
-      fname: new FormControl(),
-      lname:new FormControl(),
-      email: new FormControl(),
-      pwd: new FormControl()
+      fname: ['', Validators.required],
+      lname: ['', [Validators.required, Validators.maxLength(5)]],
+      email: ['', [Validators.required, Validators.email]],
+      pwd: ['', Validators.required]
     })
   }
-  ngOnInit(){
+  ngOnInit() {
+    // this.signupForm.get('email').statusChanges.subscribe(res=> {
+    //   console.log('email :: ', res)
+    // })
 
+    this.signupForm.statusChanges.subscribe(res=> {
+      console.log('form :: ', res)
+    })
+
+    // this.signupForm.valueChanges.subscribe((detail:formsignup) => {
+    //   console.log('fname :: ', detail.fname);
+    //   console.log('lname :: ', detail.lname);
+    //   console.log('email :: ', detail.email);
+    //   console.log('pwd :: ', detail.pwd);
+    // })
   }
 
-  postData(signupForm: NgForm){
-    console.log(signupForm.controls);
+  postData() {
+    this.firstName = this.signupForm.get('fname').value;
+    this.lastName = this.signupForm.get('lname').value;
+    console.log(this.signupForm.value)
+  }
+
+  resetForm() {
+    this.signupForm.reset({
+      fname: "Ahmad",
+      email: 'xyz@gmail.com'
+    })
+  }
+
+  /*fillData() {
+    this.signupForm.setValue({
+      "fname": "Ahmad",
+      "lname": "Mr",
+      "email": "aa@gg.com",
+      "pwd": "xxx"
+    })
+  } */
+  fillData() {
+    this.signupForm.patchValue({
+      "fname": "Ahmad",
+      "email": "aa@gg.com",
+      "pwd": "xxx"
+    })
   }
 }
