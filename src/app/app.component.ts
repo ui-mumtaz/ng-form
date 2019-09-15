@@ -24,15 +24,20 @@ export class AppComponent implements OnInit {
     })
   }
   ngOnInit() {
-    // this.signupForm.get('fname').valueChanges.subscribe(res=> {
-    //   console.log('fname :: ', res)
+    // this.signupForm.get('email').statusChanges.subscribe(res=> {
+    //   console.log('email :: ', res)
     // })
-    this.signupForm.valueChanges.subscribe((detail:formsignup) => {
-      console.log('fname :: ', detail.fname);
-      console.log('lname :: ', detail.lname);
-      console.log('email :: ', detail.email);
-      console.log('pwd :: ', detail.pwd);
+
+    this.signupForm.statusChanges.subscribe(res=> {
+      console.log('form :: ', res)
     })
+
+    // this.signupForm.valueChanges.subscribe((detail:formsignup) => {
+    //   console.log('fname :: ', detail.fname);
+    //   console.log('lname :: ', detail.lname);
+    //   console.log('email :: ', detail.email);
+    //   console.log('pwd :: ', detail.pwd);
+    // })
   }
 
   postData() {
