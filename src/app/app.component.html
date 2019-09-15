@@ -2,9 +2,10 @@
   <h1> Welcome to {{title}}</h1>
 
   <div class="col-6">
-    <form [formGroup]='signupForm' (ngSubmit)="postData(signupForm)">
+    <form [formGroup]="signupForm">
       <div class="form-group">
         <input type="text" class="form-control" formControlName="fname">
+        <span *ngIf="signupForm.get('fname').hasError('required')"> Enter your Name </span>
       </div>
       <div class="form-group">
         <input type="text" class="form-control" formControlName="lname">
@@ -15,7 +16,8 @@
       <div class="form-group">
         <input type="password" class="form-control" formControlName="pwd">
       </div>
-      <input type="Submit" class="btn btn-primary" value="Post Data">
+      <input type="Submit" (click)="postData()" class="btn btn-primary" value="Post Data" [disabled]="!signupForm.valid">
+      <input type="Reset" (click)="resetForm()" class="btn btn-secondary ml-2" value="Reset" [disabled]="!signupForm.valid">
     </form>
   </div>
 
